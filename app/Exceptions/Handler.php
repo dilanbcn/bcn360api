@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use App\Traits\ApiResponser;
+use Asm89\Stack\CorsService;
+use BadMethodCallException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -73,6 +75,11 @@ class Handler extends ExceptionHandler
 
     public function handleException($request, Throwable $exception)
     {
+
+        // if ($exception instanceof BadMethodCallException) {
+        //     return $this->errorResponse("La solicitud contiene sintaxis errónea", 404);
+        // }
+
         if ($exception instanceof ValidationException) {
             $this->convertValidationExceptionToResponse($exception, $request);
         }
@@ -107,7 +114,9 @@ class Handler extends ExceptionHandler
 
 			if ($codigo == 1451) {
 				return $this->errorResponse('No se puede eliminar de forma permamente el recurso porque está relacionado con algún otro.', 409);
-			}
+			} else {
+                return $this->errorResponse('Falla inesperada. Intente luego', 409);
+            }
         }
 
         if ($exception instanceof TokenMismatchException) {
