@@ -19,10 +19,10 @@ class CreateAccionesTable extends Migration
             $table->id();
             $table->foreignId('menu_id')->constrained(Menu::table);
             $table->string('descripcion');
-            $table->boolean('create');
-            $table->boolean('read');
-            $table->boolean('update');
-            $table->boolean('delete');
+            $table->boolean('create')->nullable();
+            $table->boolean('read')->nullable();
+            $table->boolean('update')->nullable();
+            $table->boolean('delete')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

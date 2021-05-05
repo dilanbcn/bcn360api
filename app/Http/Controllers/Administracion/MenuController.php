@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administracion;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\MenuRequest;
 use App\Models\Administracion\Menu;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class MenuController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
         $menu = Menu::create([
             'titulo' => $request->get('titulo'),
@@ -51,8 +52,6 @@ class MenuController extends ApiController
         return $this->showOne($menu);
     }
 
-    
-
     /**
      * Update the specified resource in storage.
      *
@@ -60,7 +59,7 @@ class MenuController extends ApiController
      * @param  \App\Models\Administracion\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
+    public function update(MenuRequest $request, Menu $menu)
     {
         $menu->fill($request->only([
             'titulo' => $request->get('titulo'),

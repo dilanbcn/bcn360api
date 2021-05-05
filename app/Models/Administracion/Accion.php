@@ -28,6 +28,10 @@ class Accion extends Model
         'delete', 
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     public function menu()
     {
     	return $this->belongsTo(Menu::class);

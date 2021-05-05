@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administracion;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\RolRequest;
 use App\Models\Administracion\Rol;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class RolController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RolRequest $request)
     {
         $rol = Rol::create([
             'descripcion' => $request->get('descripcion'),
@@ -43,9 +44,9 @@ class RolController extends ApiController
      * @param  \App\Models\Administracion\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function show(Rol $rol)
+    public function show(Rol $role)
     {
-        return $this->showOne($rol);
+        return $this->showOne($role);
     }
 
     /**
@@ -55,20 +56,16 @@ class RolController extends ApiController
      * @param  \App\Models\Administracion\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rol $rol)
+    public function update(RolRequest $request, Rol $role)
     {
-        $rol->fill($request->only([
+        $role->fill($request->only([
             'descripcion',
             'estado',
         ]));
 
-        if ($rol->isClean()) {
-            return $this->errorResponse('Debe especificar al menos un valor diferente para actualizar', 422);
-        }
-        
-        $rol->save();
+        $role->save();
 
-        return $this->showOne($rol);
+        return $this->showOne($role);
     }
 
     /**
@@ -77,10 +74,10 @@ class RolController extends ApiController
      * @param  \App\Models\Administracion\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rol $rol)
+    public function destroy(Rol $role)
     {
-        $rol->delete();
+        $role->delete();
 
-        return $this->showOne($rol);
+        return $this->showOne($role);
     }
 }

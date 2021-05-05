@@ -2,6 +2,7 @@
 
 namespace App\Models\Administracion;
 
+use App\Scope\RolScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,6 +24,17 @@ class Rol extends Model
         'descripcion', 
         'estado', 
     ];
+
+    protected $hidden = [
+        'pivot'
+    ];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new RolScope);
+    }
 
     public function acciones()
     {
