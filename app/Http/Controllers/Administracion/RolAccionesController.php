@@ -31,14 +31,14 @@ class RolAccionesController extends ApiController
 
     public function update(RolAccionesRequest $request, Rol $role)
     {
+        $acciones = $request->get('acciones');
 
-       $acciones = $request->get('acciones');
+        $role->acciones()->detach();
 
         foreach ($acciones as $accion) {
 
             $role->acciones()->syncWithoutDetaching($accion);
         }
-
 
         return $this->showAll($role->acciones);
     }
