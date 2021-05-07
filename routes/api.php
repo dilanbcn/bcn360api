@@ -23,9 +23,10 @@ Route::resource('menus', 'Administracion\MenuController', ['except' => ['create'
 Route::resource('acciones', 'Administracion\AccionController', ['except' => ['create', 'edit']]);
 Route::resource('roles.acciones', 'Administracion\RolAccionesController', ['only' => ['index']]);
 Route::put('roles/{role}/acciones', 'Administracion\RolAccionesController@update')->name('roles.acciones.update');
+Route::put('usuario/{usuario}/roles', 'Administracion\UsuarioRolesController@update')->name('usuario.roles');
+Route::resource('usuario.menu', 'Administracion\UsuarioMenuController', ['only' => ['index']]);
 
 
-// Route::get('menus', 'Administracion\MenuController@index')->name('menus.index');
 // Route::post('menus', 'Administracion\MenuController@store')->name('menus.store');
 // Route::get('menus/{menu}', 'Administracion\MenuController@show')->name('menus.show');
 // Route::put('menus/{menu}', 'Administracion\MenuController@update')->name('menus.update');

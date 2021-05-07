@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Administracion;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\RolAccionesRequest;
 use App\Models\Administracion\Rol;
-use Illuminate\Http\Request;
 
 class RolAccionesController extends ApiController
 {
@@ -42,4 +41,6 @@ class RolAccionesController extends ApiController
 
         return $this->showAll($role->acciones);
     }
+
+    
 }

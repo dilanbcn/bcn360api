@@ -26,4 +26,13 @@ trait ApiResponser
 	{
 		return $this->successResponse(['data' => $instance], $code);
 	}
+
+	protected function showOneOnly($instance, $code = 200) {
+
+		return $this->successResponse($instance, $code);
+	}
+
+	protected function showAllOnly(Collection $collection, $code = 200) {
+		return $this->successResponse(['data' => $collection], $code);
+	}
 }
