@@ -25,6 +25,7 @@ Route::resource('roles.acciones', 'Administracion\RolAccionesController', ['only
 Route::put('roles/{role}/acciones', 'Administracion\RolAccionesController@update')->name('roles.acciones.update');
 Route::put('usuario/{usuario}/roles', 'Administracion\UsuarioRolesController@update')->name('usuario.roles');
 Route::resource('usuario.menu', 'Administracion\UsuarioMenuController', ['only' => ['index']]);
+Route::resource('tipo_archivos', 'Administracion\TipoArchivosController', ['except' => ['create', 'edit']]);
 
 
 // Route::post('menus', 'Administracion\MenuController@store')->name('menus.store');
