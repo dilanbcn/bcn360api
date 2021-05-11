@@ -16,7 +16,9 @@ class CreateCarpetasTable extends Migration
     {
         Schema::create(Carpeta::table, function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique();
+            $table->integer('padre_id')->unsigned()->nullable();
+            $table->string('nombre');
+            $table->string('path');
             $table->boolean('estado')->default(true);
             $table->integer('creado_por')->unsigned()->nullable();
 

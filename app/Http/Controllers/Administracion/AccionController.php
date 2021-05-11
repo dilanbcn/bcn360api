@@ -63,15 +63,15 @@ class AccionController extends ApiController
      */
     public function update(Request $request, Accion $accione)
     {
-        $accione->fill($request->only([
+        $accione->fill([
             'menu_id' => $request->get('menu_id'),
             'descripcion' => $request->get('descripcion'),
             'create' => ($request->get('create')) ? $request->get('create') : $accione->create,
             'read' => ($request->get('read')) ? $request->get('read') : $accione->read,
             'update' => ($request->get('update')) ? $request->get('update') : $accione->update,
             'delete' => ($request->get('delete')) ? $request->get('delete') : $accione->delete,
-        ]));
-
+        ]);
+        
         $accione->save();
 
         return $this->showOne($accione);

@@ -114,8 +114,8 @@ class Handler extends ExceptionHandler
 
 			if ($codigo == 1451) {
 				return $this->errorResponse('No se puede eliminar de forma permamente el recurso porque está relacionado con algún otro.', 409);
-			} else {
-                return $this->errorResponse('Falla inesperada en BD, Intente luego', 409);
+			// } else {
+            //     return $this->errorResponse('Falla inesperada en BD, Intente luego', 409);
             }
         }
 

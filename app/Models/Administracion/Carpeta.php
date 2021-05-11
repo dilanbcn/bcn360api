@@ -20,8 +20,20 @@ class Carpeta extends Model
      * @var array
      */
     protected $fillable = [
+        'padre_id',
         'nombre', 
         'estado', 
+        'path',
         'creado_por', 
     ];
+
+    public function archivo()
+    {
+    	return $this->hasMany(Archivo::class);
+    }
+
+    public function padre()
+    {
+        return $this->belongsTo(Carpeta::class, 'padre_id', 'id');
+    }
 }

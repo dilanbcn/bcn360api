@@ -59,7 +59,11 @@ class TipoArchivosController extends ApiController
      */
     public function update(TipoArchivoRequest $request, TipoArchivo $tipoArchivo)
     {
-        $tipoArchivo->fill($request->all());
+        $tipoArchivo->fill($request->only([
+            'extension',
+            'creado_por',
+            'estado',
+        ]));
 
         return $this->showOne($tipoArchivo);
     }

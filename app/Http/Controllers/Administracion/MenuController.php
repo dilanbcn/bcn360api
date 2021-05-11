@@ -62,9 +62,9 @@ class MenuController extends ApiController
     public function update(MenuRequest $request, Menu $menu)
     {
         $menu->fill($request->only([
-            'titulo' => $request->get('titulo'),
-            'ruta' => $request->get('ruta'),
-            'estado' => $request->get('estado'),
+            'titulo',
+            'ruta',
+            'estado',
         ]));
 
         $menu->save();

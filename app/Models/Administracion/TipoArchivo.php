@@ -23,4 +23,9 @@ class TipoArchivo extends Model
         'creado_por', 
         'estado', 
     ];
+
+    public function archivo()
+    {
+    	return $this->hasMany(Archivo::class);
+    }
 }

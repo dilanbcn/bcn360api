@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Administracion;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\CarpetaRequest;
+use App\Models\Administracion\Archivo;
 use App\Models\Administracion\Carpeta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str as Str;
 
 class CarpetaController extends ApiController
 {
@@ -26,10 +30,13 @@ class CarpetaController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CarpetaRequest $request)
     {
+
         $carpeta = Carpeta::create([
             'nombre' => $request->get('nombre'),
+            'padre_id' => $request->get('padre'),
+            'path' => $this->obtenerPath($request),
             'creado_por' => $request->get('creado_por'),
         ]);
 
@@ -56,9 +63,37 @@ class CarpetaController extends ApiController
      * @param  \App\Models\Administracion\Carpeta  $carpeta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Carpeta $carpeta)
+    public function update(CarpetaRequest $request, Carpeta $carpeta)
     {
-        $carpeta->fill($request->all());
+
+        $carpeta->fill($request->only([
+            'nombre',
+            'creado_por',
+            'estado'
+        ]));
+
+        $destino = $this->obtenerPath($request, $carpeta);
+
+        $cearpetaEliminar = "";
+        if ($destino != $carpeta->path) {
+            $directorioRaiz = public_path(config('app.archivos_url'));
+            $cearpetaEliminar = $directorioRaiz.$carpeta->path;
+            
+        }
+
+
+        $carpeta->padre_id = ($request->has('padre')) ? $request->get('padre') : $carpeta->padre_id;
+        $carpeta->path = $destino;
+
+        if (Archivo::where(['carpeta_id' => $carpeta->id])->count() > 0) {
+            $this->moverArchivos($carpeta->id, $destino);
+
+            if ($cearpetaEliminar) {
+                File::deleteDirectory($cearpetaEliminar);
+            }
+        }
+
+        
 
         $carpeta->save();
 
@@ -73,6 +108,11 @@ class CarpetaController extends ApiController
      */
     public function destroy(Carpeta $carpeta)
     {
+
+        if (Archivo::where(['carpeta_id' => $carpeta->id])->count() > 0) {
+            return $this->errorResponse('No se puede eliminar la carpeta porque hay archivos que dependen de ella', 404);
+        }
+
         $carpeta->delete();
 
         return $this->showOne($carpeta);
