@@ -28,7 +28,14 @@ Route::resource('usuario.menu', 'Administracion\UsuarioMenuController', ['only' 
 Route::resource('tipo_archivos', 'Administracion\TipoArchivosController', ['except' => ['create', 'edit']]);
 Route::resource('carpetas', 'Administracion\CarpetaController', ['except' => ['create', 'edit']]);
 Route::resource('archivos', 'Administracion\ArchivoController', ['except' => ['create', 'edit']]);
-
+Route::resource('archivo.usuarios', 'Administracion\ArchivoUsuariosController', ['only' => ['index']]);
+Route::put('archivo/{archivo}/usuarios', 'Administracion\ArchivoUsuariosController@update')->name('archivo.usuarios.update');
+Route::resource('usuario.archivos', 'Administracion\UsuarioArchivosController', ['only' => ['index']]);
+Route::put('usuario/{usuario}/archivos', 'Administracion\UsuarioArchivosController@update')->name('usuario.archivos.update');
+Route::resource('carpetas/{carpeta}/usuarios', 'Administracion\CarpetaUsuariosController', ['only' => ['index']]);
+Route::put('carpetas/{carpeta}/usuarios', 'Administracion\CarpetaUsuariosController@update')->name('carpeta.usuarios.update');
+Route::resource('usuario.carpetas', 'Administracion\UsuarioCarpetasController', ['only' => ['index']]);
+Route::put('usuario/{usuario}/carpetas', 'Administracion\UsuarioCarpetasController@update')->name('usuarios.carpeta.update');
 
 // Route::post('menus', 'Administracion\MenuController@store')->name('menus.store');
 // Route::get('menus/{menu}', 'Administracion\MenuController@show')->name('menus.show');

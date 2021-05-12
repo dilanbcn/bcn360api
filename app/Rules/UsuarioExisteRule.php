@@ -26,7 +26,15 @@ class UsuarioExisteRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return (DB::table('usuarios')->where('id', $value)->exists());
+
+        $arrUsuarioId = (is_array($value)) ? $value : explode(" ", $value);
+
+        $res = DB::table('usuarios')->whereIn('id', $arrUsuarioId)->count();
+
+        $return = ($res != count($arrUsuarioId)) ? false : true;
+
+        return $return;
+
     }
 
     /**

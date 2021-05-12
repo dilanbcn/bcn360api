@@ -32,6 +32,10 @@ class Archivo extends Model
         'creado_por',
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     public function carpeta()
     {
     	return $this->belongsTo(Carpeta::class);

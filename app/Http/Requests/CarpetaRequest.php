@@ -36,7 +36,7 @@ class CarpetaRequest extends FormRequest
             return [
                 'creado_por' => ['required', 'min:1', 'integer', new UsuarioExisteRule],
                 'nombre' => ['string', 'required', new CarpetaUnicaRule],
-                'padre' => [ 'exclude_if:padre,null', new CarpetaUnicaRule],
+                'padre' => [ 'exclude_if:padre,null', 'exists:carpetas,padre_id', new CarpetaUnicaRule],
                 'estado' => 'boolean',
             ];
         }
@@ -52,7 +52,7 @@ class CarpetaRequest extends FormRequest
             'string' => 'El campo :attribute es inválido',
             'unique' => 'La carpeta ya existe',
             'boolean' => 'El campo :attribute debe ser booleano',
-            'exists' => 'El campo :attribute no existe',
+            'exists' => 'La carpeta padre no existe',
             'not_in' => 'La carpeta padre debe ser distinta a la carpeta actual',
         ];
     }
