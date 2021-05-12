@@ -6,9 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\CarpetaRequest;
 use App\Models\Administracion\Archivo;
 use App\Models\Administracion\Carpeta;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str as Str;
 
 class CarpetaController extends ApiController
 {
@@ -32,7 +30,6 @@ class CarpetaController extends ApiController
      */
     public function store(CarpetaRequest $request)
     {
-
         $carpeta = Carpeta::create([
             'nombre' => $request->get('nombre'),
             'padre_id' => $request->get('padre'),
@@ -65,7 +62,6 @@ class CarpetaController extends ApiController
      */
     public function update(CarpetaRequest $request, Carpeta $carpeta)
     {
-
         $carpeta->fill($request->only([
             'nombre',
             'creado_por',
@@ -81,7 +77,6 @@ class CarpetaController extends ApiController
             
         }
 
-
         $carpeta->padre_id = ($request->has('padre')) ? $request->get('padre') : $carpeta->padre_id;
         $carpeta->path = $destino;
 
@@ -92,8 +87,6 @@ class CarpetaController extends ApiController
                 File::deleteDirectory($cearpetaEliminar);
             }
         }
-
-        
 
         $carpeta->save();
 
@@ -108,7 +101,6 @@ class CarpetaController extends ApiController
      */
     public function destroy(Carpeta $carpeta)
     {
-
         if (Archivo::where(['carpeta_id' => $carpeta->id])->count() > 0) {
             return $this->errorResponse('No se puede eliminar la carpeta porque hay archivos que dependen de ella', 404);
         }
