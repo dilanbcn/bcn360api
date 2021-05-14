@@ -26,6 +26,7 @@ class MenuRequest extends FormRequest
         return [
             'titulo' => 'required|string',
             'ruta' => 'required|string',
+            'modelo' => 'required|string',
             'estado' => 'boolean',
         ];
     }
@@ -43,6 +44,7 @@ class MenuRequest extends FormRequest
         return [
             'titulo' => 'título',
             'ruta' => 'ruta',
+            'modelo' => 'modelo',
             'estado' => 'estado',
         ];
     }

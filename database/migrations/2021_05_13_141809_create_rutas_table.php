@@ -1,11 +1,12 @@
 <?php
 
 use App\Models\Administracion\Menu;
+use App\Models\Administracion\Ruta;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenusTable extends Migration
+class CreateRutasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +15,15 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create(Menu::table, function (Blueprint $table) {
+        Schema::create(Ruta::table, function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->string('ruta');
-            $table->string('modelo');
+            $table->foreignId('menu_id')->constrained(Menu::table);
+            $table->string('nombre');
             $table->boolean('estado')->default(true);
 
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 
@@ -33,6 +34,6 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Menu::table);
+        Schema::dropIfExists(Ruta::table);
     }
 }

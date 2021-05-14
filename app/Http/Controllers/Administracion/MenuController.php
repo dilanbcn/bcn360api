@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Administracion;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\MenuRequest;
 use App\Models\Administracion\Menu;
-use Illuminate\Http\Request;
 
 class MenuController extends ApiController
 {
@@ -21,8 +20,6 @@ class MenuController extends ApiController
         return $this->showAll($menus);
     }
 
-    
-
     /**
      * Store a newly created resource in storage.
      *
@@ -34,6 +31,7 @@ class MenuController extends ApiController
         $menu = Menu::create([
             'titulo' => $request->get('titulo'),
             'ruta' => $request->get('ruta'),
+            'modelo' => $request->get('modelo'),
         ]);
 
         $menu->save();
@@ -64,6 +62,7 @@ class MenuController extends ApiController
         $menu->fill($request->only([
             'titulo',
             'ruta',
+            'modelo',
             'estado',
         ]));
 

@@ -19,14 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('roles', 'Administracion\RolController', ['except' => ['create', 'edit']]);
-Route::resource('menus', 'Administracion\MenuController', ['except' => ['create', 'edit']]);
+
 Route::resource('acciones', 'Administracion\AccionController', ['except' => ['create', 'edit']]);
 Route::resource('roles.acciones', 'Administracion\RolAccionesController', ['only' => ['index']]);
 Route::put('roles/{role}/acciones', 'Administracion\RolAccionesController@update')->name('roles.acciones.update');
 Route::put('usuario/{usuario}/roles', 'Administracion\UsuarioRolesController@update')->name('usuario.roles');
 Route::resource('usuario.menu', 'Administracion\UsuarioMenuController', ['only' => ['index']]);
 Route::resource('tipo_archivos', 'Administracion\TipoArchivosController', ['except' => ['create', 'edit']]);
-Route::resource('carpetas', 'Administracion\CarpetaController', ['except' => ['create', 'edit']]);
+
 Route::resource('archivos', 'Administracion\ArchivoController', ['except' => ['create', 'edit']]);
 Route::resource('archivo.usuarios', 'Administracion\ArchivoUsuariosController', ['only' => ['index']]);
 Route::put('archivo/{archivo}/usuarios', 'Administracion\ArchivoUsuariosController@update')->name('archivo.usuarios.update');
@@ -36,6 +36,12 @@ Route::resource('carpetas/{carpeta}/usuarios', 'Administracion\CarpetaUsuariosCo
 Route::put('carpetas/{carpeta}/usuarios', 'Administracion\CarpetaUsuariosController@update')->name('carpeta.usuarios.update');
 Route::resource('usuario.carpetas', 'Administracion\UsuarioCarpetasController', ['only' => ['index']]);
 Route::put('usuario/{usuario}/carpetas', 'Administracion\UsuarioCarpetasController@update')->name('usuarios.carpeta.update');
+
+Route::group(['middleware' => 'rol'], function () {
+    Route::resource('carpetas', 'Administracion\CarpetaController', ['except' => ['create', 'edit']]);
+    Route::resource('menus', 'Administracion\MenuController', ['except' => ['create', 'edit']]);
+});
+
 
 // Route::post('menus', 'Administracion\MenuController@store')->name('menus.store');
 // Route::get('menus/{menu}', 'Administracion\MenuController@show')->name('menus.show');

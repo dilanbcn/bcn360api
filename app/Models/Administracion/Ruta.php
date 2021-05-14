@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Menu extends Model
+class Ruta extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const table = 'menus';
-    protected $table = Menu::table;
+    const table = 'rutas';
+    protected $table = Ruta::table;
     protected $dates = ['deleted_at'];
 
     /**
@@ -20,19 +20,15 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'titulo', 
-        'ruta', 
-        'modelo', 
-        'estado', 
+        'menu_id', 
+        'nombre', 
+        'estado'
     ];
 
-    public function acciones()
+    public function menu()
     {
-    	return $this->hasMany(Accion::class);
+    	return $this->belongsTo(Menu::class);
     }
 
-    public function rutas()
-    {
-    	return $this->hasMany(Ruta::class);
-    }
+
 }
