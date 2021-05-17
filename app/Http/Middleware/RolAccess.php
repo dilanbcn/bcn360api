@@ -41,7 +41,7 @@ class RolAccess
 
         if ($ruta) {
             // $usuario = auth()->user();
-            $usuario = 3;
+            $usuario = 1;
 
             $usuario = DB::table('usuarios')->where('id', $usuario)->first();
 
