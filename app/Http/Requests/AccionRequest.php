@@ -23,14 +23,28 @@ class AccionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'menu_id' => 'required|integer|exists:menus,id',
-            'descripcion' => 'required|string',
-            'create' => 'boolean',
-            'read' => 'boolean',
-            'update' => 'boolean',
-            'delete' => 'boolean',
-        ];
+        
+        if ($this->route()->action['as'] == 'acciones.update') {
+            return [
+                'menu_id' => 'required|integer|exists:menus,id',
+                'ruta_id' => 'required|integer|exists:rutas,id',
+                'descripcion' => 'string',
+                'create' => 'boolean',
+                'read' => 'boolean',
+                'update' => 'boolean',
+                'delete' => 'boolean',
+            ];
+        } else {
+            return [
+                'menu_id' => 'required|integer|exists:menus,id',
+                'ruta_id' => 'required|integer|exists:rutas,id',
+                'descripcion' => 'required|string',
+                'create' => 'boolean',
+                'read' => 'boolean',
+                'update' => 'boolean',
+                'delete' => 'boolean',
+            ];
+        }
     }
 
     public function messages()
@@ -48,6 +62,7 @@ class AccionRequest extends FormRequest
     {
         return [
             'menu_id' => 'menu',
+            'ruta_id' => 'ruta',
             'descripcion' => 'descripción',
             'create' => 'acción crear',
             'read' => 'acción leer',

@@ -15,7 +15,14 @@ class MenuController extends ApiController
      */
     public function index()
     {
-        $menus = Menu::all();
+        $menus = Menu::where('padre_id', null)->orderBy('titulo', 'asc')->get();
+
+        $menus->map(function($menu){
+            if (!$menu->padre_id) {
+                $menu->hijos = Menu::where('padre_id', $menu->id)->get();
+            }
+             
+        });
 
         return $this->showAll($menus);
     }

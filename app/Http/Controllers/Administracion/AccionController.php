@@ -31,6 +31,7 @@ class AccionController extends ApiController
     {
         $accion = Accion::create([
             'menu_id' => $request->get('menu_id'),
+            'ruta_id' => $request->get('ruta_id'),
             'descripcion' => $request->get('descripcion'),
             'create' => ($request->get('create')) ? $request->get('create') : false,
             'read' => ($request->get('read')) ? $request->get('read') : false,
@@ -61,11 +62,12 @@ class AccionController extends ApiController
      * @param  \App\Models\Administracion\Accion  $accion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Accion $accione)
+    public function update(AccionRequest $request, Accion $accione)
     {
         $accione->fill([
             'menu_id' => $request->get('menu_id'),
-            'descripcion' => $request->get('descripcion'),
+            'ruta_id' => $request->get('ruta_id'),
+            'descripcion' => ($request->get('descripcion')) ? $request->get('descripcion') : $accione->descripcion,
             'create' => ($request->get('create')) ? $request->get('create') : $accione->create,
             'read' => ($request->get('read')) ? $request->get('read') : $accione->read,
             'update' => ($request->get('update')) ? $request->get('update') : $accione->update,

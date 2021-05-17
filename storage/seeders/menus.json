@@ -1,0 +1,22 @@
+[{
+        "padre_id": null,
+        "titulo": "Biblioteca",
+        "ruta": "biblioteca.index",
+        "modelo": "biblioteca",
+        "estado": true
+    },
+    {
+        "padre_id": 1,
+        "titulo": "Carpetas",
+        "ruta": "carpetas.index",
+        "modelo": "carpetas",
+        "estado": true
+    },
+    {
+        "padre_id": 1,
+        "titulo": "Archivos",
+        "ruta": "archivos.index",
+        "modelo": "archivos",
+        "estado": true
+    }
+]

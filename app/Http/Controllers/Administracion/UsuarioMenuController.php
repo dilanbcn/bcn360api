@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Administracion;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Administracion\Rol;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class UsuarioMenuController extends ApiController
@@ -24,23 +22,24 @@ class UsuarioMenuController extends ApiController
 
             $roles = json_decode($usuario->roles);
 
-            $roles = Rol::whereIn('id', $roles)->with('acciones', function($sql){
-                return $sql->with('menu');
+            $roles = Rol::when($roles, function ($sql) use ($roles) {
+                return $sql->whereIn('id', $roles)->with('acciones', function ($sql) {
+                    return $sql->with('menu');
+                });
             })->get();
 
             $salida = array();
-            
-            $roles->map(function($rol) use (&$salida){
-                $rol->acciones->map(function($accion) use (&$salida){
+
+            $roles->map(function ($rol) use (&$salida) {
+                $rol->acciones->map(function ($accion) use (&$salida) {
                     $salida[] = $accion->menu;
-                 });
+                });
             });
-            
+
             return response()->json(array('data' => $salida), 201);
 
         } else {
             return $this->errorResponse('No existe ninguna instancia de usuario con el id especificado', 404);
         }
-
     }
 }

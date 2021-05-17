@@ -20,8 +20,8 @@ class Ruta extends Model
      * @var array
      */
     protected $fillable = [
-        'menu_id', 
         'nombre', 
+        'descripcion', 
         'estado'
     ];
 

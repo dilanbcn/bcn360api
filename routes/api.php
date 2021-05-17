@@ -37,9 +37,9 @@ Route::put('carpetas/{carpeta}/usuarios', 'Administracion\CarpetaUsuariosControl
 Route::resource('usuario.carpetas', 'Administracion\UsuarioCarpetasController', ['only' => ['index']]);
 Route::put('usuario/{usuario}/carpetas', 'Administracion\UsuarioCarpetasController@update')->name('usuarios.carpeta.update');
 
+Route::resource('menus', 'Administracion\MenuController', ['except' => ['create', 'edit']]);
 Route::group(['middleware' => 'rol'], function () {
     Route::resource('carpetas', 'Administracion\CarpetaController', ['except' => ['create', 'edit']]);
-    Route::resource('menus', 'Administracion\MenuController', ['except' => ['create', 'edit']]);
 });
 
 

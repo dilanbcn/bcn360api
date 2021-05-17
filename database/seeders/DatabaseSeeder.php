@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolSeeder::class,
-            TipoArchivoSeeder::class
+            TipoArchivoSeeder::class,
+            MenuSeeder::class,
+            RutasSeeder::class,
         ]);
     }
 }

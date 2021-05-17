@@ -17,8 +17,8 @@ class CreateRutasTable extends Migration
     {
         Schema::create(Ruta::table, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('menu_id')->constrained(Menu::table);
             $table->string('nombre');
+            $table->string('descripcion');
             $table->boolean('estado')->default(true);
 
             $table->timestamps();

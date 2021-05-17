@@ -2,6 +2,7 @@
 
 use App\Models\Administracion\Accion;
 use App\Models\Administracion\Menu;
+use App\Models\Administracion\Ruta;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ class CreateAccionesTable extends Migration
         Schema::create(Accion::table, function (Blueprint $table) {
             $table->id();
             $table->foreignId('menu_id')->constrained(Menu::table);
+            $table->foreignId('ruta_id')->constrained(Ruta::table);
             $table->string('descripcion');
             $table->boolean('create')->nullable();
             $table->boolean('read')->nullable();

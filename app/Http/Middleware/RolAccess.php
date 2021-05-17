@@ -28,34 +28,57 @@ class RolAccess
         } else {
             return response()->json(['error' => 'Acceso denegado', 'code' => 401], 401);
         }
-
     }
 
     private function getAccesoUsuario($ruta)
     {
-        $strRuta = explode('.', $ruta);
 
-        $ruta = Ruta::where('nombre', 'like', strtolower($strRuta[0]))->first();
+        $arrRuta = explode('.', $ruta);
+        $strQuery = $this->getAccion(end($arrRuta));
+
+        $ruta = Ruta::where('nombre', 'like', strtolower($arrRuta[0]))->first();
         $paso = false;
+
         if ($ruta) {
             // $usuario = auth()->user();
-            $usuario = 1;
+            $usuario = 3;
 
             $usuario = DB::table('usuarios')->where('id', $usuario)->first();
 
-            $roles = json_decode($usuario->roles);
+            $arrRoles = json_decode($usuario->roles);
+
+            $roles = array();
+
+            if ($arrRoles) {
+                $roles = Rol::whereIn('id', $arrRoles)->whereHas('acciones', function ($sql) use ($ruta, $strQuery) {
+                    return $sql->where('ruta_id', $ruta->id)->where($strQuery, 1);
+                })->with('acciones')->get()->pluck('acciones')->unique()->values();
+            }
 
 
-            $roles = Rol::whereIn('id', $roles)->whereHas('acciones', function ($sql) use ($ruta) {
-                return $sql->whereHas('menu', function ($query) use ($ruta) {
-                    return $query->where('id', $ruta->menu_id);
-                });
-            })->exists();
-
-            $paso = ($roles) ? true : false;
-
+            $paso = (count($roles)) ? true : false;
         }
 
         return $paso;
+    }
+
+    private function getAccion($strAccion)
+    {
+        switch ($strAccion) {
+            case "index":
+                $strQuery = 'read';
+                break;
+            case "store":
+                $strQuery = 'create';
+                break;
+            case "update":
+                $strQuery = 'update';
+                break;
+            case "destroy":
+                $strQuery = 'delete';
+                break;
+        }
+
+        return $strQuery;
     }
 }

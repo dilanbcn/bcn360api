@@ -21,6 +21,7 @@ class Accion extends Model
      */
     protected $fillable = [
         'menu_id', 
+        'ruta_id', 
         'descripcion', 
         'create', 
         'read', 

@@ -20,6 +20,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
+        'padre_id', 
         'titulo', 
         'ruta', 
         'modelo', 
@@ -34,5 +35,10 @@ class Menu extends Model
     public function rutas()
     {
     	return $this->hasMany(Ruta::class);
+    }
+
+    public function padre()
+    {
+        return $this->belongsTo(Menu::class, 'padre_id', 'id');
     }
 }

@@ -1,0 +1,11 @@
+[{
+        "nombre": "Carpetas",
+        "descripcion": "Crear, Editar, Eliminar carpetas y sub carpetas, ver y asignar permisos a usuarios por carpetas",
+        "estado": true
+    },
+    {
+        "nombre": "Archivos",
+        "descripcion": "Crear, Editar, Eliminar archivos, ver y asignar permisos a usuarios por archivos",
+        "estado": true
+    }
+]
