@@ -1,6 +1,5 @@
 /node_modules
 /public/hot
-/public/biblioteca/*
 /public/storage
 /storage/*.key
 /vendor
