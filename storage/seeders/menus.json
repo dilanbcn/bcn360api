@@ -1,19 +1,54 @@
 [{
         "padre_id": null,
+        "titulo": "Administración",
+        "ruta": "administracion.index",
+        "modelo": "administracion",
+        "estado": true
+    },
+    {
+        "padre_id": 1,
+        "titulo": "Menús",
+        "ruta": "menus.index",
+        "modelo": "menu",
+        "estado": true
+    },
+    {
+        "padre_id": 1,
+        "titulo": "Roles",
+        "ruta": "roles.index",
+        "modelo": "rol",
+        "estado": true
+    },
+    {
+        "padre_id": 1,
+        "titulo": "Acciones",
+        "ruta": "acciones.index",
+        "modelo": "accion",
+        "estado": true
+    },
+    {
+        "padre_id": 1,
+        "titulo": "Tipo Archivos",
+        "ruta": "tipo_archivos.index",
+        "modelo": "tipoArchivo",
+        "estado": true
+    },
+    {
+        "padre_id": null,
         "titulo": "Biblioteca",
         "ruta": "biblioteca.index",
         "modelo": "biblioteca",
         "estado": true
     },
     {
-        "padre_id": 1,
+        "padre_id": 6,
         "titulo": "Carpetas",
         "ruta": "carpetas.index",
         "modelo": "carpetas",
         "estado": true
     },
     {
-        "padre_id": 1,
+        "padre_id": 6,
         "titulo": "Archivos",
         "ruta": "archivos.index",
         "modelo": "archivos",
